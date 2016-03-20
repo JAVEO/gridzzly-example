@@ -4,9 +4,7 @@ version := "1.0-SNAPSHOT"
 
 addCompilerPlugin("org.scalamacros" % "paradise" % "2.1.0-M5" cross CrossVersion.full)
 
-val gridzzly = project
-
-lazy val root = (project in file(".")).enablePlugins(PlayScala).dependsOn(gridzzly).aggregate(gridzzly)
+lazy val root = (project in file(".")).enablePlugins(PlayScala)
 
 scalaVersion := "2.11.6"
 
