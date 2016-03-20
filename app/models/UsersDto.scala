@@ -6,7 +6,8 @@ import org.joda.time.DateTime
 
 case class UsersDto(usersWithCars: Seq[UserWithCarDto], count: Int)
 
-case class UserDto(email: String,
+case class UserDto(id: Long,
+                   email: String,
                    firstName: String,
                    lastName: String,
                    status: UserStatus,

@@ -4,7 +4,9 @@ version := "1.0-SNAPSHOT"
 
 addCompilerPlugin("org.scalamacros" % "paradise" % "2.1.0-M5" cross CrossVersion.full)
 
-lazy val root = (project in file(".")).enablePlugins(PlayScala)
+val gridzzly = project
+
+lazy val root = (project in file(".")).enablePlugins(PlayScala).dependsOn(gridzzly).aggregate(gridzzly)
 
 scalaVersion := "2.11.6"
 
@@ -21,7 +23,9 @@ libraryDependencies ++= Seq(
   "com.h2database" % "h2" % "1.4.187",
   "com.typesafe.play" %% "play-slick-evolutions" % "1.0.1",
   "org.scalaz" %% "scalaz-core" % "7.1.3",
-  "it.justwrote" %% "scala-faker" % "0.3"
+  "it.justwrote" %% "scala-faker" % "0.3",
+  "org.scalatest" %% "scalatest" % "2.2.1" % "test",
+  "org.scalatestplus" %% "play" % "1.4.0-M3" % "test"
 )
 
 

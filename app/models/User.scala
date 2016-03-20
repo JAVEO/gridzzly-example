@@ -12,7 +12,7 @@ case class User( id: Option[Long],
                  notes: String){
 
   def toUserDto: UserDto = {
-    UserDto(email, firstName, lastName,
+    UserDto(id.get, email, firstName, lastName,
       UserStatusesCollection.findStatusById(status),
       GendersCollection.findGenderById(gender),
       notes, salary)
@@ -39,8 +39,10 @@ object User{
 
     object Male extends Gender("male", 1)
     object Female extends Gender("female", 2)
+    object Test1 extends Gender("test1", 111)
+    object Test2 extends Gender("test2", 112)
 
-    val genders = Seq(Male, Female)
+    val genders = Seq(Male, Female, Test1, Test2)
 
     def findGenderById(id: Int): Gender = {
       genders.find(_.id == id).head

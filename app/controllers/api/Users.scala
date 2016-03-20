@@ -20,7 +20,7 @@ import scala.concurrent.Future
 import scala.util.Random
 
 @Singleton
-class Users @Inject()(implicit val dbConfig: DefaultDBConnection){
+class Users @Inject()(implicit val dbConfig: DBConnection) extends Controller{
   val usersTable = TableQuery[UsersTable]
   val carsTable = TableQuery[CarsTable]
   val userCarsTable = TableQuery[UserCarsTable]

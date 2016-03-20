@@ -5,7 +5,7 @@ import play.api.db.slick.DatabaseConfigProvider
 import slick.driver.JdbcProfile
 import play.api.inject.ApplicationLifecycle
 import slick.driver.H2Driver.api._
-
+import play.api.Play.current
 import scala.concurrent.Future
 
 trait DBConnection {
@@ -20,4 +20,10 @@ class DefaultDBConnection @Inject()(dbConfigProvider: DatabaseConfigProvider, li
   lifecycle.addStopHook{ () =>
     Future.successful(db.close())
   }
+}
+
+@Singleton
+class TestDBConnection extends DBConnection {
+  val dbConfig = DatabaseConfigProvider.get[JdbcProfile]("test")
+  val db: Database = dbConfig.db
 }
