@@ -4,7 +4,7 @@ import com.google.inject.{Inject, Singleton}
 import database.{DBConnection, DefaultDBConnection}
 import database.definitions.{UserCarsTable, CarsTable, UsersTable}
 import faker._
-import grid.{GridConditions, FilterColumns}
+import grid.{GridResponse, GridConditions, FilterColumns}
 import models.User.GendersCollection.Gender
 import models.User.UserStatusesCollection.UserStatus
 import models._
@@ -34,12 +34,11 @@ class Users @Inject()(implicit val dbConfig: DBConnection) extends Controller{
 
   def list(page: Int, perPage: Int, sortBy: String, sortDir: String, filterBy: FilterColumns) = Action.async { implicit request =>
     val gridConditions = GridConditions(page, perPage, sortBy, sortDir, filterBy)
-    val searchResults: (Future[Seq[(User, Option[Car])]], Future[Int]) = UsersGrid().run(gridConditions)
+    val searchResults: Future[GridResponse[(User, Option[Car])]] = UsersGrid().run(gridConditions)
 
     val result = for {
-      users <- searchResults._1
-      count <- searchResults._2
-    } yield UsersDto(users.map{case (user, car) => UserWithCarDto(user.toUserDto, car)}, count)
+      response <- searchResults
+    } yield UsersDto(response.items.map{case (user, car) => UserWithCarDto(user.toUserDto, car)}, response.totalCount)
 
     result.map(response => Ok(Json.toJson(response)))
   }

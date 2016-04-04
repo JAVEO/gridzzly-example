@@ -4,7 +4,7 @@
 
 # Home page
 GET        /api/users           @controllers.api.Users.list(page: Int ?= 1, perPage: Int ?= 20, sortBy: String ?= "id", sortDir ?= "asc", filterBy: grid.FilterColumns)
-GET       /api/seeds           @controllers.api.Users.seeds()
+GET        /api/seeds            @controllers.api.Users.seeds()
 
 # Map static resources from the /public folder to the /assets URL path
 GET        /assets/*file        controllers.Assets.versioned(path="/public", file: Asset)
