@@ -3,9 +3,9 @@ package models
 import database.DBConnection
 import database.definitions.{UserCarsTable, CarsTable, UsersTable}
 import grid._
-import org.joda.time.DateTime
 import slick.lifted.TableQuery
 import slick.driver.H2Driver.api._
+import scala.concurrent.ExecutionContext.Implicits.global
 
 @Gridzzly
 case class UsersGrid() extends Grid[(UsersTable, Rep[Option[CarsTable]]), (User, Option[Car]), Seq]{
